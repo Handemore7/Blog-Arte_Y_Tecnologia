@@ -1,3 +1,11 @@
-body {
-    margin: 0;
-}
+    body { 
+        margin: 0; 
+    }
+	#c {
+        width: 100vw;
+        height: 100vh;
+        display: block;
+        background: url(https://threejsfundamentals.org/threejs/resources/images/daikanyama.jpg) no-repeat center center ;
+        background-size: cover;
+      }
+
