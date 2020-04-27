@@ -40,6 +40,19 @@ function main() {
       const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
       scene.add(light);
     }
+
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+    var loader = new THREE.OBJLoader();
+    loader.load
+    (
+        'Models/Tree.obj',
+
+        function(object)
+        {
+            scene.add(object);
+        }
+    );
   
     {
       const color = 0xFFFFFF;
