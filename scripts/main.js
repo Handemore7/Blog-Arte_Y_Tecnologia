@@ -10,7 +10,7 @@ function main() {
     camera.position.set(0, 10, 20);
   
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('black');
+    scene.background = new THREE.Color('lightblue');
   
     {
       const planeSize = 40;
@@ -43,17 +43,29 @@ function main() {
 
     controls = new THREE.OrbitControls(camera, renderer.domElement);
 
+
+    var loaderTexture = new THREE.ImageLoader();
+    loaderTexture.load( './Models/bark_0021-jpg', function ( image ) {
+
+        texture.image = image;
+        texture.needsUpdate = true;
+
+    } );
+
     var loader = new THREE.OBJLoader();
     loader.load
     (
-        'Models/Tree.obj',
+        './Models/Tree.obj',
 
-        function(object)
-        {
-            scene.add(object);
-        }
-    );
-  
+        function(object){scene.add(object);
+            if ( child instanceof THREE.Mesh ) {
+
+                child.material.map = texture;
+
+            }
+        });
+    
+    
     {
       const color = 0xFFFFFF;
       const intensity = 1;
