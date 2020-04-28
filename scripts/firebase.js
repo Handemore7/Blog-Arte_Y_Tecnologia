@@ -48,7 +48,7 @@ var firebaseConfig = {
   firebase.auth().signInWithEmailAndPassword(emailInputLogin.value, passwordInputLogin.value).then(function(user) {
       console.log('El usuario se conectó1');
       
-      //window.location.replace("./index.html");
+      window.location.replace("./index.html");
   }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
