@@ -14,7 +14,9 @@ var firebaseConfig = {
   
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  
+  var firestore = firebase.firestore();
+
+  var docRef = firestore.doc('attributes/treesAmount');
   var emailInputLogin = document.querySelector('.inputEmailLogin');
   var passwordInputLogin = document.querySelector('.inputPasswordLogin');
   var sendBtnLogin = document.querySelector('.sendInfoLogin');
@@ -25,6 +27,17 @@ var firebaseConfig = {
   var loginGmail = document.querySelector('.loginGmail');
   var treeProgress = document.querySelector('.treeQuantity');
   var amountOfTrees = 0 ; //Aqui el valor se extrae de la base de datos
+
+  var sendQuantity = function (event) {
+    docRef.set({
+        treesAmount: amountOfTrees
+    }).then(function() {
+        console.log('Se mandó la info');
+    }).catch(function (error) {
+        console.log('No se mandó la info,', error);
+    });
+  }
+  logOut.addEventListener('click', sendQuantity)
 
   var handleTreeProgress = function (event) {
       amountOfTrees += 1 ;
