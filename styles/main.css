@@ -2,11 +2,19 @@ body {
   margin: 0;
 }
 
+.drawCanvas {
+  display: none;
+}
+
 #c {
   width: 100vw;
   height: 100vh;
   display: block;
   background: url(https://threejsfundamentals.org/threejs/resources/images/daikanyama.jpg) no-repeat center center;
   background-size: cover;
+}
+
+.loginAndRegister {
+  display: block;
 }
 /*# sourceMappingURL=main.css.map */

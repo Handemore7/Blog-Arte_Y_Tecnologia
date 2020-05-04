@@ -1,4 +1,6 @@
   
+var addTreebtn = document.querySelector('.addTree');
+console.log(amountOfTrees);
 function main() {
     const canvas = document.querySelector('#c');
     const renderer = new THREE.WebGLRenderer({canvas});
@@ -12,6 +14,7 @@ function main() {
   
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('lightblue');
+    
   
     {
       const planeSize = 40;
@@ -106,6 +109,12 @@ function main() {
     }
     
     main();
+
+    var handleAddTree = function(event){
+      amountOfTrees+=1;
+      console.log(amountOfTrees);
+    }
+    addTreebtn.addEventListener('click', handleAddTree);
     
     //Aqui termina lo del canvas del entorno virtual.
 

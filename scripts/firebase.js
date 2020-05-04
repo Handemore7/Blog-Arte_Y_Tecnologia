@@ -11,6 +11,14 @@ var firebaseConfig = {
     appId: "1:234742925719:web:261ed72b39bb3aa0aa1cd2",
     measurementId: "G-W5N984WD8T"
   };
+
+  document.onload = function(){
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    }).catch(function(error) {
+      // An error happened.
+    });
+  }
   
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
@@ -28,13 +36,18 @@ var firebaseConfig = {
   var treeProgress = document.querySelector('.treeQuantity');
   var amountOfTrees = 0 ; //Aqui el valor se extrae de la base de datos
 
+
   var sendQuantity = function (event) {
-    docRef.set({
+    firebase.auth().signOut().then(function() {
+      docRef.set({
         treesAmount: amountOfTrees
     }).then(function() {
         console.log('Se mandó la info');
     }).catch(function (error) {
         console.log('No se mandó la info,', error);
+    });
+    }).catch(function(error) {
+      // An error happened.
     });
   }
   logOut.addEventListener('click', sendQuantity)
@@ -47,8 +60,8 @@ var firebaseConfig = {
   var handleSendInfoLogin = function(event) {
   firebase.auth().signInWithEmailAndPassword(emailInputLogin.value, passwordInputLogin.value).then(function(user) {
       console.log('El usuario se conectó1');
-      
-      window.location.replace("./index.html");
+      document.querySelector('.loginAndRegister').style.display='none';
+      document.querySelector('.drawCanvas').style.display='block';
   }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -119,17 +132,6 @@ var firebaseConfig = {
   }
   loginGmail.addEventListener('click', handleLoginWithGmail);
   */
-  
-  var handleLogOut = function(event) {
-  firebase.auth().signOut().then(function() {
-    // Sign-out successful.
-  }).catch(function(error) {
-    // An error happened.
-  });
-  }
-  logOut.addEventListener('click', handleLogOut);
-  
-  
   
   // A partir de aqui comienza todo lo del canvas del entorno virtual.
   

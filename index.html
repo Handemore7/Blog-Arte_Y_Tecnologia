@@ -6,19 +6,38 @@
     <title>Proyecto AyT</title>
     <link rel="stylesheet" href="./styles/main.css">
 </head>
-<body>
+<body onload="handleLogOut()">
+    <div class="loginAndRegister">
+        <p>Logearse</p>
+        <input type="email" placeholder="Correo" name="" class="inputEmailLogin" >
+        <input type="password" placeholder="Contraseña" name="" class="inputPasswordLogin">
+        <input type="button" value="Enviar" class="sendInfoLogin">
+        <p>Registrarse</p>
+        <input type="email" placeholder="Correo" name="" class="inputEmailRegister" >
+        <input type="password" placeholder="Contraseña" name="" class="inputPasswordRegister">
+        <input type="button" value="Enviar" class="sendInfoRegister">
 
-    
-    <p> <a href="auth.html">Ir a autenticación</a></p>
-    <canvas id="c"></canvas>
-    <script src="scripts/three.js"></script>
-  
+        <input type="button" value="Cantidad de arboles" class="treeQuantity">
+        <input type="button" value="Cerrar sesión" class="logOut">
+        <!-- <input type="button" value="Iniciar sesión con gmail" class="loginGmail"> -->  
+        <input type="button" value="Aumentar Arboles" class="addTree">
+    </div>
+
+    <div class="drawCanvas">
+        <canvas id="c"></canvas>
+        <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+        <script src="scripts/three.js"></script>
+    </div>
 
     <script type="module" src="https://threejsfundamentals.org/threejs/resources/threejs/r115/build/three.module.js"></script>
     <script src="./scripts/OrbitControls.js"></script>
     <script src="./scripts/MTLLoader.js"></script>
     <script src="./scripts/OBJLoader.js"></script>
-    <script src="./scripts/main.js"></script>
     <script src="./scripts/firebase.js"></script>
+    <script src="./scripts/main.js"></script>
 </body>
 </html>
