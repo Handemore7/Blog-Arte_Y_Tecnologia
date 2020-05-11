@@ -34,16 +34,17 @@ var firebaseConfig = {
   var treeProgress = document.querySelector('.treeQuantity');
   var correo = undefined;
   var amountOfTrees = 0 ; //Aqui el valor se extrae de la base de datos
+  var pantalla = 0;
   
   
   var sendQuantity = function (event) {
     var docRefColection = firestore.doc( "/"+correo+"/Cantidad de arboles" );
-    var docRefAttribute = firestore.doc(` {passwordInputLogin.value}/treesAmount` );
       docRefColection.set({
         treesAmount: amountOfTrees
     }).then(function() {
         document.querySelector('.loginAndRegister').style.display='block';
         document.querySelector('.drawCanvas').style.display='none';
+        pantalla = 0;
         emailInputLogin.value = '';
         passwordInputLogin.value = '';
     }).catch(function (error) {
@@ -56,11 +57,12 @@ var firebaseConfig = {
     docRefColection.onSnapshot(function(doc){
       if(doc && doc.exists){
         const myData = doc.data();
-        console.log(myData.treesAmount);
+        amountOfTrees=myData.treesAmount;
+        console.log("Mi cantidad de arboles es: "+amountOfTrees);
+        main();
       }
     });
   }
-  treeProgress.addEventListener('click', getRealTimeUpdates);
   
 
   var handleTreeProgress = function (event) {
@@ -73,6 +75,10 @@ var firebaseConfig = {
   firebase.auth().signInWithEmailAndPassword(emailInputLogin.value, passwordInputLogin.value).then(function(user) {
       document.querySelector('.loginAndRegister').style.display='none';
       document.querySelector('.drawCanvas').style.display='block';
+      pantalla = 1;
+      getRealTimeUpdates();
+      console.log("Esto es despues del getRealTimeUpdates y la cantidad de arboles es: "+amountOfTrees);
+      
   }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -85,6 +91,108 @@ var firebaseConfig = {
       console.log(error);
   });
   }
+  function main() {
+      const canvas = document.querySelector('#c');
+      const renderer = new THREE.WebGLRenderer({canvas});
+    
+      const fov = 45;
+      const aspect = 2;  // the canvas default
+      const near = 0.1;
+      const far = 100;
+      const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+      camera.position.set(0, 10, 20);
+    
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color('lightblue');
+      
+    
+      {
+        const planeSize = 40;
+    
+        const loader = new THREE.TextureLoader();
+        const texture = loader.load('https://threejsfundamentals.org/threejs/resources/images/checker.png');
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+        texture.magFilter = THREE.NearestFilter;
+        const repeats = planeSize / 2;
+        texture.repeat.set(repeats, repeats);
+    
+        const planeGeo = new THREE.PlaneBufferGeometry(planeSize, planeSize);
+        const planeMat = new THREE.MeshPhongMaterial({
+          map: texture,
+          side: THREE.DoubleSide,
+        });
+        const mesh = new THREE.Mesh(planeGeo, planeMat);
+        mesh.rotation.x = Math.PI * -.5;
+        scene.add(mesh);
+      }
+    
+      {
+        const skyColor = 0xB1E1FF;  // light blue
+        const groundColor = 0xB97A20;  // brownish orange
+        const intensity = 1;
+        const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+        scene.add(light);
+      }
+  
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+  
+      //cargar el modelo
+      console.log("Antes de entrar al for y la cantidad de arboles es: "+amountOfTrees);
+      for (let index = 0; index < amountOfTrees; index++) {
+        console.log("Entré al for");
+        var loader = new THREE.OBJLoader();
+        loader.load('./Models/Tree.obj',function(object){
+          var posX = Math.floor(Math.random()*20) + 1;
+          posX *= Math.floor(Math.random()*2) == 1 ? 1 : -1;
+          var posZ = Math.floor(Math.random()*20) + 1;
+          posZ *= Math.floor(Math.random()*2) == 1 ? 1 : -1;
+          object.position.x=posX;
+          object.position.z=posZ;
+          scene.add(object);
+          console.log(posX,posZ);
+          
+            });
+        
+      }
+      
+      {
+        const color = 0xFFFFFF;
+        const intensity = 1;
+        const light = new THREE.DirectionalLight(color, intensity);
+        light.position.set(0, 10, 0);
+        light.target.position.set(-5, 0, 0);
+        scene.add(light);
+        scene.add(light.target);
+      }
+      
+  
+      function resizeRendererToDisplaySize(renderer) {
+          const canvas = renderer.domElement;
+          const width = canvas.clientWidth;
+          const height = canvas.clientHeight;
+          const needResize = canvas.width !== width || canvas.height !== height;
+          if (needResize) {
+            renderer.setSize(width, height, false);
+          }
+          return needResize;
+        }
+      
+        function render() {
+      
+          if (resizeRendererToDisplaySize(renderer)) {
+            const canvas = renderer.domElement;
+            camera.aspect = canvas.clientWidth / canvas.clientHeight;
+            camera.updateProjectionMatrix();
+          }
+      
+          renderer.render(scene, camera);
+      
+          requestAnimationFrame(render);
+        }
+      
+        requestAnimationFrame(render);
+      }
   sendBtnLogin.addEventListener('click', handleSendInfoLogin);
   
   var handleSendInfoRegister = function(event) {
