@@ -9,7 +9,6 @@ var sendBtnLogin2 = document.querySelector('.sendInfoLogin');
       amountOfTrees+=1;
       console.log(amountOfTrees);
     }
-    addTreebtn.addEventListener('click', handleAddTree);
     
     //Aqui termina lo del canvas del entorno virtual.
 

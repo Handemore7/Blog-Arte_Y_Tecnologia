@@ -23,37 +23,48 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   var firestore = firebase.firestore();
-  var emailInputLogin = document.querySelector('.inputEmailLogin');
-  var passwordInputLogin = document.querySelector('.inputPasswordLogin');
+  var emailInputLogin = undefined;
+  var passwordInputLogin = undefined;
   var sendBtnLogin = document.querySelector('.sendInfoLogin');
-  var emailInputRegister = document.querySelector('.inputEmailRegister');
-  var passwordInputRegister = document.querySelector('.inputPasswordRegister');
+  var emailInputRegister = undefined;
+  var passwordInputRegister = undefined;
   var sendBtnRegister = document.querySelector('.sendInfoRegister');
   var logOut = document.querySelector('.logOut');
   var loginGmail = document.querySelector('.loginGmail');
   var treeProgress = document.querySelector('.treeQuantity');
   var correo = undefined;
+  var changeLogInToRegister = document.querySelector(".createAccount");
+  var changeRegisterToLogIn = document.querySelector(".logInWithAccount");
   var amountOfTrees = 0 ; //Aqui el valor se extrae de la base de datos
-  var pantalla = 0;
   
-  
+  var handleLogInToRegister = function(event) {
+    document.querySelector(".logIn").style.display='none';
+    document.querySelector(".register").style.display='block';
+  }
+  changeLogInToRegister.addEventListener('click', handleLogInToRegister);
+
+  var handleRegisterToLogIn = function(event) {
+    document.querySelector(".logIn").style.display='block';
+    document.querySelector(".register").style.display='none';
+  }
+  changeRegisterToLogIn.addEventListener('click', handleRegisterToLogIn);
+
   var sendQuantity = function (event) {
-    var docRefColection = firestore.doc( "/"+correo+"/Cantidad de arboles" );
+    console.log("Esto es antes de setear el valor de amountOfTrees");
+    var docRefColection = firestore.doc("/"+correo+"/Cantidad de arboles");
       docRefColection.set({
         treesAmount: amountOfTrees
     }).then(function() {
-        document.querySelector('.loginAndRegister').style.display='block';
+        document.querySelector('.general').style.display='block';
         document.querySelector('.drawCanvas').style.display='none';
-        pantalla = 0;
-        emailInputLogin.value = '';
-        passwordInputLogin.value = '';
+        handleLogOut();
     }).catch(function (error) {
         console.log('Nooooo se mandó la info,', error);
     });
   }
 
   var getRealTimeUpdates = function(){
-    var docRefColection = firestore.doc( "/"+correo+"/Cantidad de arboles" );
+    var docRefColection = firestore.doc( "/"+correo+"/Cantidad de arboles");
     docRefColection.onSnapshot(function(doc){
       if(doc && doc.exists){
         const myData = doc.data();
@@ -71,11 +82,12 @@ var firebaseConfig = {
   }
   
   var handleSendInfoLogin = function(event) {
+    emailInputLogin = document.querySelector('.inputEmailLogin');
+    passwordInputLogin = document.querySelector('.inputPasswordLogin');
     correo = emailInputLogin.value;
   firebase.auth().signInWithEmailAndPassword(emailInputLogin.value, passwordInputLogin.value).then(function(user) {
-      document.querySelector('.loginAndRegister').style.display='none';
+      document.querySelector('.general').style.display='none';
       document.querySelector('.drawCanvas').style.display='block';
-      pantalla = 1;
       getRealTimeUpdates();
       console.log("Esto es despues del getRealTimeUpdates y la cantidad de arboles es: "+amountOfTrees);
       
@@ -196,6 +208,8 @@ var firebaseConfig = {
   sendBtnLogin.addEventListener('click', handleSendInfoLogin);
   
   var handleSendInfoRegister = function(event) {
+    emailInputRegister = document.querySelector('.inputEmailRegister');
+    passwordInputRegister = document.querySelector('.inputPasswordRegister');
   firebase.auth().createUserWithEmailAndPassword(emailInputRegister.value, passwordInputRegister.value).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
@@ -216,11 +230,7 @@ var firebaseConfig = {
     var uid = user.uid;
     var providerData = user.providerData;
     console.log(displayName);
-    var mostrarEmail = function(event){
-      console.log(email);
-    }
     treeProgress.addEventListener('click', handleTreeProgress);
-    treeProgress.addEventListener('click', mostrarEmail);
     console.log('El usuario se conectó1');
     // ...
   } else {
@@ -233,8 +243,9 @@ var handleLogOut = function(event) {
   firebase.auth().signOut().then(function() {
     // Sign-out successful.
     console.log('salio');
-    emailInputLogin = document.querySelector('.inputEmailLogin');
-    passwordInputLogin = document.querySelector('.inputPasswordLogin');
+    emailInputLogin = undefined;
+    passwordInputLogin = undefined;
+    
 
   }).catch(function(error) {
     // An error happened.
@@ -243,7 +254,6 @@ var handleLogOut = function(event) {
 }
 
 logOut.addEventListener('click', sendQuantity);
-logOut.addEventListener('click', handleLogOut);
   /*
   //autenticación con google
   var provider = new firebase.auth.GoogleAuthProvider();

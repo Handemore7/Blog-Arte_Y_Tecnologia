@@ -7,19 +7,39 @@
     <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body onload="handleLogOut()">
+<div class="general">
+    <img src="/images/Bosque.jpg" class="imgBackground">
     <div class="loginAndRegister">
-        <p>Logearse</p>
-        <input type="email" placeholder="Correo" name="" class="inputEmailLogin" >
-        <input type="password" placeholder="Contraseña" name="" class="inputPasswordLogin">
-        <input type="button" value="Enviar" class="sendInfoLogin">
-        <p>Registrarse</p>
-        <input type="email" placeholder="Correo" name="" class="inputEmailRegister" >
-        <input type="password" placeholder="Contraseña" name="" class="inputPasswordRegister">
-        <input type="button" value="Enviar" class="sendInfoRegister">
-
+        <div class="logIn" style="display: block;">
+            <div class="content-main" >
+                <h2>Logearse</h2>
+                        <input type="email"  name="Email" placeholder="Correo" class="inputEmailLogin">
+                        <input type="password" name="Password" placeholder="Contraseña" class="inputPasswordLogin">
+                        <span><input type="checkbox" />Recordarme</span>
+                        <span class="span-right"><a href="#">Olvidaste tu contraseña?</a></span>
+                            <div class="clearfix"></div>
+                            <input type="button" value="Entrar" name="login" class="sendInfoLogin">
+                    <p>No tienes cuenta aún?<button class= "createAccount">Crea una cuenta</p>
+            </div>
+        </div>
+        <div class="register" style="display: none;">
+            <div class="content-main">
+                <h2>Registrate</h2>
+                    <form action="#" method="post">
+                        <input type="text" name="Name" placeholder="Nombre de usuario" class="inputUsernameRegister">
+                        <input type="email" name="Email" placeholder="Correo" class="inputEmailRegister ">
+                        <input type="password" name="Password" placeholder="Contraseña" class="inputPasswordRegister ">
+                        <h4><input type="checkbox" />Acepto los terminos y condiciones</h4>
+                        
+                            <div class="clearfix"></div>
+                            <input type="button" value="Registrarme" class="sendInfoRegister">
+                    </form>
+                    <p>Ya estas registrado? <button class="logInWithAccount">Login</p>
+            </div>
+        </div>
         <!-- <input type="button" value="Iniciar sesión con gmail" class="loginGmail"> -->  
     </div>
-    
+</div>
     <div class="drawCanvas" >
         <input type="button" value="Cantidad de arboles" class="treeQuantity">
         <input type="button" value="Cerrar sesión" class="logOut">
