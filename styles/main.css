@@ -34,6 +34,7 @@ html, body {
 
 .imgBackground {
   position: absolute;
+  background-color: lightgreen;
   width: 100%;
   -webkit-filter: blur(3px);
           filter: blur(3px);
