@@ -16,6 +16,29 @@
         background: url(https://threejsfundamentals.org/threejs/resources/images/daikanyama.jpg) no-repeat center center ;
         background-size: cover;
       }
+
+    .formProgress {
+        display: none;
+    }
+
+    .questions{
+        position: relative;
+    }
+    .options{
+        display: inline-block;
+    }
+    .answer {
+        display: block;
+    }
+    .sendAnswers{
+        position: absolute;
+        width: 100px;
+        height: 30px;
+        margin: 10px auto 10px auto;
+        right: 50%;
+    }
+
+
       .loginAndRegister {
         filter: blur(0px);
         position: relative;

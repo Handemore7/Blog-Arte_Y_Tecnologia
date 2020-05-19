@@ -19,6 +19,30 @@ html, body {
   background-size: cover;
 }
 
+.formProgress {
+  display: none;
+}
+
+.questions {
+  position: relative;
+}
+
+.options {
+  display: inline-block;
+}
+
+.answer {
+  display: block;
+}
+
+.sendAnswers {
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  margin: 10px auto 10px auto;
+  right: 50%;
+}
+
 .loginAndRegister {
   -webkit-filter: blur(0px);
           filter: blur(0px);

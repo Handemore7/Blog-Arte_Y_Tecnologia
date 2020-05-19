@@ -35,7 +35,17 @@ var firebaseConfig = {
   var correo = undefined;
   var changeLogInToRegister = document.querySelector(".createAccount");
   var changeRegisterToLogIn = document.querySelector(".logInWithAccount");
+  var changeCameraBtn = document.querySelector(".changeCamera");
+  var sendFormBtn = document.querySelector(".sendAnswers");
+  var isometricCamera = true;
+  var cantidadInicial = 0;
   var amountOfTrees = 0 ; //Aqui el valor se extrae de la base de datos
+
+  var handleCamera = function(event){
+    isometricCamera = !isometricCamera;
+    getRealTimeUpdates();
+  }
+  changeCameraBtn.addEventListener('click', handleCamera);
   
   var handleLogInToRegister = function(event) {
     document.querySelector(".logIn").style.display='none';
@@ -111,9 +121,14 @@ var firebaseConfig = {
       const aspect = 2;  // the canvas default
       const near = 0.1;
       const far = 100;
-      const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+      var camera = undefined;
+      if(isometricCamera){
+      camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
       camera.position.set(0, 10, 20);
-    
+      }else{
+      camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 20000 );
+			camera.position.y = getY( worldHalfWidth, worldHalfDepth ) * 100 + 100;
+      }
       const scene = new THREE.Scene();
       scene.background = new THREE.Color('lightblue');
       
@@ -122,7 +137,7 @@ var firebaseConfig = {
         const planeSize = 40;
     
         const loader = new THREE.TextureLoader();
-        const texture = loader.load('https://threejsfundamentals.org/threejs/resources/images/checker.png');
+        const texture = loader.load('./images/grassTexture.png');
         texture.wrapS = THREE.RepeatWrapping;
         texture.wrapT = THREE.RepeatWrapping;
         texture.magFilter = THREE.NearestFilter;
@@ -146,8 +161,14 @@ var firebaseConfig = {
         const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
         scene.add(light);
       }
-  
-      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      if (isometricCamera) {
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+      }else {
+        controls = new FirstPersonControls( camera, renderer.domElement );
+				controls.movementSpeed = 1000;
+				controls.lookSpeed = 0.125;
+				controls.lookVertical = true;
+      }
   
       //cargar el modelo
       console.log("Antes de entrar al for y la cantidad de arboles es: "+amountOfTrees);
@@ -210,7 +231,82 @@ var firebaseConfig = {
   var handleSendInfoRegister = function(event) {
     emailInputRegister = document.querySelector('.inputEmailRegister');
     passwordInputRegister = document.querySelector('.inputPasswordRegister');
-  firebase.auth().createUserWithEmailAndPassword(emailInputRegister.value, passwordInputRegister.value).catch(function(error) {
+  firebase.auth().createUserWithEmailAndPassword(emailInputRegister.value, passwordInputRegister.value).then(function(){
+    //Aqui debe ir la parte del formulario, se hace una vez que se crea la cuenta.
+    document.querySelector('.general').style.display='none';
+    document.querySelector('.drawCanvas').style.display='none';
+    document.querySelector('.formProgress').style.display='block';
+
+    var sendFormInfo = function(event){
+      if(document.getElementById("p1_5").checked){
+        cantidadInicial+=5;
+      }
+      if(document.getElementById("p1_10").checked){
+        cantidadInicial+=10;
+      }
+      if(document.getElementById("p1_0").checked){
+        cantidadInicial+=0;
+      }
+      if(document.getElementById("p1_2").checked){
+        cantidadInicial+=2;
+      }
+      if(document.getElementById("p2_0").checked){
+        cantidadInicial+=0;
+      }
+      if(document.getElementById("p2_10").checked){
+        cantidadInicial+=10;
+      }
+      if(document.getElementById("p2_2").checked){
+        cantidadInicial+=2;
+      }
+      if(document.getElementById("p2_5").checked){
+        cantidadInicial+=5;
+      }
+      if(document.getElementById("p3_5").checked){
+        cantidadInicial+=5;
+      }
+      if(document.getElementById("p3_10").checked){
+        cantidadInicial+=10;
+      }
+      if(document.getElementById("p3_0").checked){
+        cantidadInicial+=0;
+      }
+      if(document.getElementById("p3_00").checked){
+        cantidadInicial+=0;
+      }
+      console.log(cantidadInicial);
+      correo = document.querySelector(".inputEmailRegister").value;
+      contraseña = document.querySelector(".inputPasswordRegister").value;
+      var docRefColection = firestore.doc("/"+correo+"/Cantidad de arboles");
+      docRefColection.set({
+        treesAmount: cantidadInicial
+    }).then(function() {
+
+    }).catch(function (error) {
+        console.log('Nooooo se mandó la info,', error);
+    });
+      firebase.auth().signInWithEmailAndPassword(correo, contraseña).then(function(user) {
+        document.querySelector('.general').style.display='none';
+        document.querySelector('.drawCanvas').style.display='block';
+        document.querySelector('.formProgress').style.display='none';
+        getRealTimeUpdates();
+        console.log("Esto es despues del getRealTimeUpdates y la cantidad de arboles es: "+amountOfTrees);
+        
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      if (errorCode === 'auth/wrong-password') {
+          alert('Contraseña incorrecta.');
+        } else {
+          alert(errorMessage);         
+        }
+        console.log(error);
+    });
+    }
+    sendFormBtn.addEventListener('click', sendFormInfo);
+
+  }).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
