@@ -21,24 +21,39 @@
         display: none;
     }
 
-    .questions{
+    .formProgress {
+        display: none;
+    }
+    
+    .questions {
         position: relative;
         padding: 30px;
-        background-color: whitesmoke;
+        background: #5adaba;
+        color: white;
+        border-bottom: 2px solid white;
     }
-    .options{
+    .options {
         display: inline-block;
-        
     }
     .answer {
         display: block;
+        color: #5adaba;
+        background: white;
+        border: 67%;
+        border-radius: 32px;
+        margin: 10px;
+        box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.07);
     }
-    .sendAnswers{
+    .sendAnswers {
         position: absolute;
-        width: 100px;
-        height: 30px;
+        width: 170px;
+        height: 40px;
         margin: 10px auto 10px auto;
         right: 50%;
+        font-family: "Montserrat", sans-serif;
+        border: none;
+        background: #5adaba;
+        color: white;
     }
 
 

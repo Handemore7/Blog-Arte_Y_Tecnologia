@@ -1,6 +1,34 @@
  //Autenticación de usuario con correo y contraseña
 
 //Inicialización de firebase
+
+function exportGLTF( input ) {
+  var gltfExporter = new GLTFExporter();
+  var options = {
+    trs: false,
+    onlyVisible: true,
+    truncateDrawRange: true,
+    binary: false,
+    forcePowerOfTwoTextures: false,
+    maxTextureSize: 4096 // To prevent NaN value
+  };
+  gltfExporter.parse( input, function ( result ) {
+
+    if ( result instanceof ArrayBuffer ) {
+
+      saveArrayBuffer( result, 'scene.glb' );
+
+    } else {
+
+      var output = JSON.stringify( result, null, 2 );
+      console.log( output );
+      saveString( output, 'scene.gltf' );
+
+    }
+
+  }, options );
+}
+
 var firebaseConfig = {
     apiKey: "AIzaSyCTT4IpgR7eWjQ8abJxvMdKYfIWM-7ahSU",
     authDomain: "ayt-project-6ecbe.firebaseapp.com",
@@ -40,6 +68,7 @@ var firebaseConfig = {
   var isometricCamera = true;
   var cantidadInicial = 0;
   var amountOfTrees = 0 ; //Aqui el valor se extrae de la base de datos
+  var scene = undefined;
 
   var handleCamera = function(event){
     isometricCamera = !isometricCamera;
@@ -85,12 +114,6 @@ var firebaseConfig = {
     });
   }
   
-
-  var handleTreeProgress = function (event) {
-      amountOfTrees += 1 ;
-      console.log(amountOfTrees);
-  }
-  
   var handleSendInfoLogin = function(event) {
     emailInputLogin = document.querySelector('.inputEmailLogin');
     passwordInputLogin = document.querySelector('.inputPasswordLogin');
@@ -129,13 +152,10 @@ var firebaseConfig = {
       camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 20000 );
 			camera.position.y = getY( worldHalfWidth, worldHalfDepth ) * 100 + 100;
       }
-      const scene = new THREE.Scene();
+      scene = new THREE.Scene();
       scene.background = new THREE.Color('lightblue');
-      
-    
       {
         const planeSize = 40;
-    
         const loader = new THREE.TextureLoader();
         const texture = loader.load('./images/grassTexture.png');
         texture.wrapS = THREE.RepeatWrapping;
@@ -227,6 +247,12 @@ var firebaseConfig = {
         requestAnimationFrame(render);
       }
   sendBtnLogin.addEventListener('click', handleSendInfoLogin);
+  
+
+var handleTreeProgress = function() {
+  console.log(scene);
+  exportGLTF(scene);
+}
   
   var handleSendInfoRegister = function(event) {
     emailInputRegister = document.querySelector('.inputEmailRegister');
@@ -334,7 +360,7 @@ var firebaseConfig = {
       if(document.getElementById("p8_2").checked){
         cantidadInicial+=2;
       }
-      if(document.getElementById("p_5").checked){
+      if(document.getElementById("p9_5").checked){
         cantidadInicial+=5;
       }
       if(document.getElementById("p9_10").checked){
