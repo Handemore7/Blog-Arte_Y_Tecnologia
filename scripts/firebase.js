@@ -271,8 +271,80 @@ var firebaseConfig = {
       if(document.getElementById("p3_0").checked){
         cantidadInicial+=0;
       }
-      if(document.getElementById("p3_00").checked){
+      if(document.getElementById("p3_2").checked){
+        cantidadInicial+=2;
+      }
+      if(document.getElementById("p4_5").checked){
+        cantidadInicial+=5;
+      }
+      if(document.getElementById("p4_10").checked){
+        cantidadInicial+=10;
+      }
+      if(document.getElementById("p4_0").checked){
         cantidadInicial+=0;
+      }
+      if(document.getElementById("p4_2").checked){
+        cantidadInicial+=2;
+      }
+      if(document.getElementById("p5_5").checked){
+        cantidadInicial+=5;
+      }
+      if(document.getElementById("p5_10").checked){
+        cantidadInicial+=10;
+      }
+      if(document.getElementById("p5_0").checked){
+        cantidadInicial+=0;
+      }
+      if(document.getElementById("p5_2").checked){
+        cantidadInicial+=2;
+      }
+      if(document.getElementById("p6_5").checked){
+        cantidadInicial+=5;
+      }
+      if(document.getElementById("p6_10").checked){
+        cantidadInicial+=10;
+      }
+      if(document.getElementById("p6_0").checked){
+        cantidadInicial+=0;
+      }
+      if(document.getElementById("p6_2").checked){
+        cantidadInicial+=2;
+      }
+      if(document.getElementById("p7_5").checked){
+        cantidadInicial+=5;
+      }
+      if(document.getElementById("p7_10").checked){
+        cantidadInicial+=10;
+      }
+      if(document.getElementById("p7_0").checked){
+        cantidadInicial+=0;
+      }
+      if(document.getElementById("p7_2").checked){
+        cantidadInicial+=2;
+      }
+      if(document.getElementById("p8_5").checked){
+        cantidadInicial+=5;
+      }
+      if(document.getElementById("p8_10").checked){
+        cantidadInicial+=10;
+      }
+      if(document.getElementById("p8_0").checked){
+        cantidadInicial+=0;
+      }
+      if(document.getElementById("p8_2").checked){
+        cantidadInicial+=2;
+      }
+      if(document.getElementById("p_5").checked){
+        cantidadInicial+=5;
+      }
+      if(document.getElementById("p9_10").checked){
+        cantidadInicial+=10;
+      }
+      if(document.getElementById("p9_0").checked){
+        cantidadInicial+=0;
+      }
+      if(document.getElementById("p9_2").checked){
+        cantidadInicial+=2;
       }
       console.log(cantidadInicial);
       correo = document.querySelector(".inputEmailRegister").value;

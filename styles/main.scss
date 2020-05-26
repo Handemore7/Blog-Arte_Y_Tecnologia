@@ -23,9 +23,12 @@
 
     .questions{
         position: relative;
+        padding: 30px;
+        background-color: whitesmoke;
     }
     .options{
         display: inline-block;
+        
     }
     .answer {
         display: block;

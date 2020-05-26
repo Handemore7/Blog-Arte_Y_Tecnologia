@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body onload="handleLogOut()">
-<div class="general" >
+<div class="general" style="display: none;">
     <img src="./images/Bosque.jpg" class="imgBackground">
     <div class="loginAndRegister">
         <div class="logIn" style="display: block;">
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div class="formProgress">
+<div class="formProgress" style="display: block;">
     <div class="questions">
         <p>¿Qué es el calentamiento global?</p>
         <div class="answer">
@@ -80,7 +80,7 @@
             <p class="options">Trato, pero luego en mi casa la revuelven.</p>
         </div>
     </div>
-    <div class="questions">
+    <div class="questions" >
         <p>Cuando vas al super, ¿Llevas bolsa propia?</p>
         <div class="answer">
             <input type="radio" name="" id="p3_5">
@@ -95,11 +95,125 @@
             <p class="options">No, Ahí me dan bolsas. </p>
         </div>
         <div class="answer">
-            <input type="radio" name="" id="p3_00">
+            <input type="radio" name="" id="p3_2">
             <p class="options">Ay no, con el montonal de cosas que compro. </p>
         </div>
-        <input class="sendAnswers" type="button" value="Enviar">
     </div>
+    <div class="questions">
+        <p>¿Dejas conectados tus aparatos?</p>
+        <div class="answer">
+            <input type="radio" name="" id="p4_2">
+            <p class="options">Sí, por cualquier emergencia. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p4_10">
+            <p class="options">No, siempre los desconecto. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p4_0">
+            <p class="options">Sí, ¿qué tiene? </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p4_2">
+            <p class="options">Sólo dejo conectados algunos, no todos. </p>
+        </div>
+    </div>
+    <div class="questions">
+        <p>¿has plantado un árbol?</p>
+        <div class="answer">
+            <input type="radio" name="" id="p5_0">
+            <p class="options">No, nunca.</p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p5_5">
+            <p class="options">Me gustaría, pero no lo he hecho. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p5_10">
+            <p class="options">Sí, fue una bonita experiencia. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p5_2">
+            <p class="options">¿Cuentan los frijolitos de la primaria?  </p>
+        </div>
+    </div>
+    <div class="questions">
+        <p>¿Prefieres los viajes en avión o en coche?</p>
+        <div class="answer">
+            <input type="radio" name="" id="p6_5">
+            <p class="options">En ninguno de los dos, odio viajar. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p6_0">
+            <p class="options">En avión, obvio. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p6_2">
+            <p class="options">Depende de las distancias. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p6_10">
+            <p class="options">En coche</p>
+        </div>
+    </div>
+    <div class="questions">
+        <p>¿Reciclas los envases que utilizas?</p>
+        <div class="answer">
+            <input type="radio" name="" id="p7_5">
+            <p class="options">Sí, los uso para guardar comida. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p7_0">
+            <p class="options">No, todos los tiro.</p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p7_10">
+            <p class="options">Sí, ahí pongo mis plantitas. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p7_2">
+            <p class="options">Mi mamá lo hace. </p>
+        </div>
+    </div>
+    <div class="questions">
+        <p>¿Te gusta andar en bici?</p>
+        <div class="answer">
+            <input type="radio" name="" id="p8_0">
+            <p class="options">¿En esta ciudad? Ni loco. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p8_10">
+            <p class="options">Sí, además así hago ejercicio. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p8_2">
+            <p class="options">No, ni siquiera sé andar en bici.</p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p8_5">
+            <p class="options">Trato de hacerlo, pero cuando voy tarde, ni pez</p>
+        </div>
+    </div>
+    <div class="questions">
+        <p>¿Has probado la comida orgánica?</p>
+        <div class="answer">
+            <input type="radio" name="" id="p9_0">
+            <p class="options">No, guácala... </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p9_5">
+            <p class="options">Sí, alguna vez la probé y me gustó. </p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p9_10">
+            <p class="options">Sí, es la única que compramos en casa.</p>
+        </div>
+        <div class="answer">
+            <input type="radio" name="" id="p9_2">
+            <p class="options">No, pero me gustaría.</p>
+        </div>
+    </div>
+    <input class="sendAnswers" type="button" value="Enviar">
 </div>
 
     <div class="drawCanvas" >
